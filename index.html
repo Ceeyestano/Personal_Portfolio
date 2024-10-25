@@ -1,0 +1,1445 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  
+</body>
+</html>
+<html><head><style type="text/css">.turbo-progress-bar {
+  position: fixed;
+  display: block;
+  top: 0;
+  left: 0;
+  height: 3px;
+  background: #0076ff;
+  z-index: 9999;
+  transition:
+    width 300ms ease-out,
+    opacity 150ms 150ms ease-in;
+  transform: translate3d(0, 0, 0);
+}
+</style><style id="st_globalStyles">
+/* MEDIA QUERIES */
+.anima-desktop-only {
+  @media (max-width: 768px) {
+    display: none !important;
+  }
+}
+
+/* SCROLLBAR */
+
+[dark-scroll]::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+[dark-scroll]::-webkit-scrollbar-track-piece {
+  background-color: #2b2b2b;
+  border: 1px solid #1d1d1d;
+}
+
+[dark-scroll]::-webkit-scrollbar-thumb {
+  height: 10px;
+  background-color: #4d4d4d;
+}
+[dark-scroll]::-webkit-scrollbar-thumb:hover {
+  background-color: #5a5a5a;
+}
+
+/* LOAD PROGRESS */
+
+.turbolinks-progress-bar {
+  height: 3px;
+  background-color: #ff6250;
+}
+
+/* GROUPING */
+
+[data-id].ui-selecting {
+  box-shadow: inset 0 0 0 1px #4285f4 !important;
+}
+[data-id].ui-selected {
+  box-shadow: inset 0 0 0 1px #4285f4 !important;
+}
+
+/* CURSOR */
+
+body[mode='comments'] * {
+  cursor: url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMzAiIGhlaWdodD0iMzAiIHZpZXdCb3g9IjAgMCAzMCAzMCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHBhdGggZmlsbC1ydWxlPSJldmVub2RkIiBjbGlwLXJ1bGU9ImV2ZW5vZGQiIGQ9Ik00LjkxNjQ4IDIzLjQxMDlDNS40OTE1MyAyMi45ODg3IDUuOTMxNzkgMjIuMzkzNSA2LjIzMjggMjEuNjQwN0M0Ljc5MDY5IDE5LjczODMgNCAxNy4zOTMzIDQgMTQuOTk3NUM0IDguOTM0MSA4LjkzMjgyIDQgMTUuMDAyMiA0QzIxLjA3MTcgNCAyNiA4LjkzOTE5IDI2IDE1LjAwMjVDMjYgMjEuMDY1OSAyMS4wNjcyIDI2IDE0Ljk5NzggMjZDMTIuOTg5NiAyNiAxMS4wMzUzIDI1LjQ1NTcgOS4zMjM2NyAyNC40MjMxQzguNDI5NjUgMjQuOTU3MiA3LjQxNDM0IDI1LjIyNjggNi4zMDAxOCAyNS4yMjY4QzUuOTU0MjYgMjUuMjI2OCA1LjU5OTM1IDI1LjIwMTQgNS4yNTM0MiAyNS4xNDU0QzQuOTAzIDI1LjA4OTUgNC42Mjg5NiAyNC44MDQ2IDQuNTUyNTggMjQuNDE4QzQuNDc2MjEgMjQuMDI2NCA0LjYxOTk3IDIzLjYyOTYgNC45MTY0OCAyMy40MTA5WiIgZmlsbD0iI0ZGNjI1MCIvPgo8L3N2Zz4K')
+      0 24,
+    auto !important;
+}
+
+body[mode='code'] [data-id]:not(.hidden) {
+  cursor: default;
+}
+
+/* default node state */
+
+body[mode='code'] [data-id]:not(.hidden), body[mode='comments'] [data-id]:not(.hidden) {
+  pointer-events: all;
+}
+
+/* is_image */
+
+body[mode='code'] [data-id].is_image [data-id], body[mode='comments'] [data-id].is_image [data-id] {
+  pointer-events: none !important;
+}
+
+/* without a data-id or ignored */
+
+[data-id].ignore,body[mode='code'] *:not([data-id]) {
+  pointer-events: none !important;
+}
+/* disable transforms for ignored elements */
+
+
+body[mode='code'] [data-id]:hover{
+  transform: none !important;
+}
+
+/* ANIMA BUTTONS */
+.an-button {
+  position: relative;
+  height: 28px;
+  padding: 0 20px;
+  font-size: 14px;
+  border-radius: 4px;
+  font-weight: 500;
+  display: inline-flex;
+  align-items: center;
+  vertical-align: middle;
+  white-space: nowrap;
+  transition-property: all;
+  transition-duration: 100ms;
+  appearance: none;
+  cursor: pointer;
+  user-select: none;
+  transition: all 0.2s ease;
+  border-width: 0;
+}
+
+.an-button > div {
+  width: 100%;
+}
+
+.an-button.primary {
+  background: #ff6250;
+  color: #ffffff;
+}
+
+.an-button.primary:hover:not(:disabled) {
+  background: #e2412e;
+}
+
+.an-button.secondary {
+  background: transparent;
+  border: 1px solid #ff6250;
+  color: #ff6250;
+}
+
+.an-button.secondary:hover:not(:disabled) {
+  color: #ffffff;
+  background: #ff6250;
+}
+
+.an-button.rounded {
+  border-radius: 100px;
+}
+
+.an-button:disabled {
+  opacity: 0.5;
+}
+
+.an-button:disabled {
+  cursor: default;
+}
+
+.an-button:active,
+.an-button:focus {
+  outline: none;
+}
+
+</style><meta charset="utf-8"><meta name="viewport" content="width=1700, maximum-scale=1.0"><link rel="shortcut icon" type="image/png" href="https://animaproject.s3.amazonaws.com/home/favicon.png"><meta name="og:type" content="website"><meta name="twitter:card" content="photo"><script id="anima-load-script" src="load.js"></script><script id="anima-hotspots-script" src="hotspots.js"></script><style id="hotspots-styles">
+    .hotspot {
+      position: absolute;
+      border: 1px solid #2a9fd8;
+      background: rgba(0, 173, 255, 0.54);
+      opacity: 0;
+      z-index: -1;
+      pointer-events:none;
+    }
+  </style><script id="s_turbo" src="https://animaapp.s3.amazonaws.com/static/turbo.es2017-umd.js"></script><script id="anima-overrides-script" src="overrides.js"></script><script src="https://animaapp.s3.amazonaws.com/js/timeline.js"></script><style>
+@import url("https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css");
+
+@import url("https://fonts.googleapis.com/css?family=Inter:500,700|Roboto+Mono:700");
+
+
+@font-face {
+  font-family: "Figma Hand-Regular";
+  font-style: normal;
+  font-weight: 400;
+  src: url('https://anima-uploads.s3.amazonaws.com/projects/65859b71fb8b896bee137e11/fonts/alumnisans-variablefont_wght.ttf') format("truetype");
+}
+
+@font-face {
+  font-family: "JejuMyeongjo-Regular";
+  font-style: normal;
+  font-weight: 400;
+  src: url('https://anima-uploads.s3.amazonaws.com/projects/6447b3a64ca5df1515ea97e9/fonts/jejumyeongjo-regular.ttf') format("truetype");
+}
+/* The following line is used to measure usage of this code. You can remove it if you want. */
+@import url("https://px.animaapp.com/6717e7c16b99b4a244eb59af.6717e7c26b99b4a244eb59b2.80iBdXt.hch.png");
+
+
+.screen textarea:focus,
+.screen input:focus {
+  outline: none;
+}
+
+.screen * {
+  -webkit-font-smoothing: antialiased;
+  box-sizing: border-box;
+}
+
+.screen div {
+  -webkit-text-size-adjust: none;
+}
+
+.component-wrapper a {
+  display: contents;
+  pointer-events: auto;
+  text-decoration: none;
+}
+
+.component-wrapper * {
+  -webkit-font-smoothing: antialiased;
+  box-sizing: border-box;
+  pointer-events: none;
+}
+
+.component-wrapper a *,
+.component-wrapper input,
+.component-wrapper video,
+.component-wrapper iframe {
+  pointer-events: auto;
+}
+
+.component-wrapper.not-ready,
+.component-wrapper.not-ready * {
+  visibility: hidden !important;
+}
+
+.screen a {
+  display: contents;
+  text-decoration: none;
+}
+
+.full-width-a {
+  width: 100%;
+}
+
+.full-height-a {
+  height: 100%;
+}
+
+.container-center-vertical {
+  align-items: center;
+  display: flex;
+  flex-direction: row;
+  height: 100%;
+  pointer-events: none;
+}
+
+.container-center-vertical > * {
+  flex-shrink: 0;
+  pointer-events: auto;
+}
+
+.container-center-horizontal {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  pointer-events: none;
+  width: 100%;
+}
+
+.container-center-horizontal > * {
+  flex-shrink: 0;
+  pointer-events: auto;
+}
+
+.auto-animated div {
+  --z-index: -1;
+  opacity: 0;
+  position: absolute;
+}
+
+.auto-animated input {
+  --z-index: -1;
+  opacity: 0;
+  position: absolute;
+}
+
+.auto-animated .container-center-vertical,
+.auto-animated .container-center-horizontal {
+  opacity: 1;
+}
+
+.overlay-base {
+  display: none;
+  height: 100%;
+  opacity: 0;
+  position: fixed;
+  top: 0;
+  width: 100%;
+}
+
+.overlay-base.animate-appear {
+  align-items: center;
+  animation: reveal 0.3s ease-in-out 1 normal forwards;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  opacity: 0;
+}
+
+.overlay-base.animate-disappear {
+  animation: reveal 0.3s ease-in-out 1 reverse forwards;
+  display: block;
+  opacity: 1;
+  pointer-events: none;
+}
+
+.overlay-base.animate-disappear * {
+  pointer-events: none;
+}
+
+@keyframes reveal {
+  from { opacity: 0 }
+ to { opacity: 1 }
+}
+
+.animate-nodelay {
+  animation-delay: 0s;
+}
+
+.align-self-flex-start {
+  align-self: flex-start;
+}
+
+.align-self-flex-end {
+  align-self: flex-end;
+}
+
+.align-self-flex-center {
+  align-self: flex-center;
+}
+
+.valign-text-middle {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.valign-text-bottom {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+}
+
+input:focus {
+  outline: none;
+}
+
+.listeners-active,
+.listeners-active * {
+  pointer-events: auto;
+}
+
+.hidden,
+.hidden * {
+  pointer-events: none;
+  visibility: hidden;
+}
+
+.smart-layers-pointers,
+.smart-layers-pointers * {
+  pointer-events: auto;
+  visibility: visible;
+}
+
+.listeners-active-click,
+.listeners-active-click * {
+  cursor: pointer;
+}
+
+* {
+  box-sizing: border-box;
+}
+:root { 
+  --black: #000000;
+  --dodger-blue: #0d99ff;
+  --eerie-black: #1e1e1e;
+  --white: #ffffff;
+ 
+  --font-size-l: 40px;
+  --font-size-m: 32px;
+  --font-size-s: 30px;
+  --font-size-xl: 50px;
+  --font-size-xs: 24px;
+  --font-size-xxl: 64px;
+  --font-size-xxs: 22px;
+ 
+  --font-family-figma_hand-regular: "Figma Hand-Regular", Helvetica;
+  --font-family-inter: "Inter", Helvetica;
+  --font-family-jejumyeongjo-regular: "JejuMyeongjo-Regular", Helvetica;
+  --font-family-roboto_mono: "Roboto Mono", Helvetica;
+}
+.inter-bold-eerie-black-50px {
+  color: var(--eerie-black);
+  font-family: var(--font-family-inter);
+  font-size: var(--font-size-xl);
+  font-style: normal;
+  font-weight: 700;
+}
+
+.inter-bold-dodger-blue-32px {
+  color: var(--dodger-blue);
+  font-family: var(--font-family-inter);
+  font-size: var(--font-size-m);
+  font-style: normal;
+  font-weight: 700;
+}
+
+.inter-medium-eerie-black-32px {
+  color: var(--eerie-black);
+  font-family: var(--font-family-inter);
+  font-size: var(--font-size-m);
+  font-style: normal;
+  font-weight: 500;
+}
+
+.inter-bold-black-40px {
+  color: var(--black);
+  font-family: var(--font-family-inter);
+  font-size: var(--font-size-l);
+  font-style: normal;
+  font-weight: 700;
+}
+
+.inter-bold-eerie-black-64px {
+  color: var(--eerie-black);
+  font-family: var(--font-family-inter);
+  font-size: var(--font-size-xxl);
+  font-style: normal;
+  font-weight: 700;
+}
+
+.figmahand-regular-normal-eerie-black-32px {
+  color: var(--eerie-black);
+  font-family: var(--font-family-figma_hand-regular);
+  font-size: var(--font-size-m);
+  font-style: normal;
+  font-weight: 400;
+}
+
+.inter-medium-eerie-black-22px {
+  color: var(--eerie-black);
+  font-family: var(--font-family-inter);
+  font-size: var(--font-size-xxs);
+  font-style: normal;
+  font-weight: 500;
+}
+
+:root {
+}
+
+
+/* screen - frame-1 */
+
+.frame-1 {
+  background-color: var(--white);
+  height: 9692px;
+  overflow-x: hidden;
+  position: relative;
+  width: 1700px;
+}
+
+.frame-1 .image-VxPVnb {
+  background-color: transparent;
+  height: 508px;
+  left: -2px;
+  position: absolute;
+  top: 0px;
+  width: 529px;
+}
+
+.frame-1 .text-VxPVnb {
+  left: 860px;
+  top: 300px;
+  width: 233px;
+}
+
+.frame-1 .cst97124gmailcom-VxPVnb {
+  background-color: transparent;
+  height: auto;
+  left: 661px;
+  letter-spacing: -0.42px;
+  line-height: 33px;
+  position: absolute;
+  text-align: left;
+  top: 388px;
+  white-space: nowrap;
+  width: auto;
+}
+
+.frame-1 .x65-8890-1672-VxPVnb {
+  background-color: transparent;
+  height: auto;
+  left: 1054px;
+  letter-spacing: -0.42px;
+  line-height: 33px;
+  position: absolute;
+  text-align: left;
+  top: 391px;
+  white-space: nowrap;
+  width: auto;
+}
+
+.frame-1 .singapore-VxPVnb {
+  background-color: transparent;
+  height: auto;
+  left: 1413px;
+  letter-spacing: -0.42px;
+  line-height: 33px;
+  position: absolute;
+  text-align: left;
+  top: 391px;
+  white-space: nowrap;
+  width: auto;
+}
+
+.frame-1 .ellipse-103-VxPVnb {
+  height: 38px;
+  left: 6011px;
+  top: 7662px;
+  width: 48px;
+}
+
+.frame-1 .group-2368-VxPVnb {
+  background-color: transparent;
+  height: 46px;
+  left: 978px;
+  position: absolute;
+  top: 385px;
+  transform: rotate(34.49deg);
+  width: 30px;
+}
+
+.frame-1 .rectangle-206-kENyA0 {
+  background-color: var(--white);
+  border: 2px solid;
+  border-color: var(--black);
+  border-radius: 7.17px;
+  height: 46px;
+  left: 0px;
+  position: absolute;
+  top: 0px;
+  width: 30px;
+}
+
+.frame-1 .rectangle-207-kENyA0 {
+  background-color: var(--white);
+  border: 2px solid;
+  border-color: var(--black);
+  height: 28px;
+  left: 6px;
+  position: absolute;
+  top: 9px;
+  width: 18px;
+}
+
+.frame-1 .vector-58-VxPVnb {
+  height: 11px;
+  left: 6006px;
+  top: 7455px;
+  width: 45px;
+}
+
+.frame-1 .text-5ArFWQ {
+  left: 913px;
+  top: 86px;
+  width: 735px;
+}
+
+.frame-1 .charlie-tan-junior-full-stack-developer-VxPVnb {
+  background-color: transparent;
+  color: var(--eerie-black);
+  font-family: var(--font-family-inter);
+  font-size: var(--font-size-xs);
+  font-style: normal;
+  font-weight: 700;
+  height: auto;
+  left: 807px;
+  letter-spacing: -0.53px;
+  line-height: 36px;
+  position: absolute;
+  text-align: center;
+  top: 145px;
+  width: auto;
+}
+
+.frame-1 .rectangle-209-VxPVnb {
+  background-color: var(--eerie-black);
+  border-radius: 3px;
+  height: 18px;
+  left: 540px;
+  position: absolute;
+  top: 50px;
+  width: 1072px;
+}
+
+.frame-1 .rectangle-210-VxPVnb {
+  background-color: var(--eerie-black);
+  border-radius: 3px;
+  height: 18px;
+  left: 540px;
+  position: absolute;
+  top: 253px;
+  width: 1072px;
+}
+
+.frame-1 .rectangle-211-VxPVnb {
+  background-color: var(--eerie-black);
+  border-radius: 3px;
+  height: 18px;
+  left: 78px;
+  position: absolute;
+  top: 560px;
+  width: 1533px;
+}
+
+.frame-1 .text-Lk3E3L {
+  left: 78px;
+  top: 655px;
+  white-space: nowrap;
+  width: 735px;
+}
+
+.frame-1 .text-NQaQKn {
+  left: 78px;
+  top: 2331px;
+  white-space: nowrap;
+  width: 735px;
+}
+
+.frame-1 .programming-language-VxPVnb {
+  background-color: transparent;
+  height: auto;
+  left: 78px;
+  letter-spacing: -0.61px;
+  line-height: 48px;
+  position: absolute;
+  text-align: left;
+  top: 2455px;
+  width: 1181px;
+}
+
+.frame-1 .text-NbBwY9 {
+  left: 78px;
+  top: 2908px;
+  white-space: nowrap;
+  width: 735px;
+}
+
+.frame-1 .text-xRLCe7 {
+  left: 813px;
+  top: 2908px;
+  white-space: nowrap;
+  width: 735px;
+}
+
+.frame-1 .diploma-in-law-manag-VxPVnb {
+  background-color: transparent;
+  height: auto;
+  left: 64px;
+  letter-spacing: -0.61px;
+  line-height: 48px;
+  position: absolute;
+  text-align: left;
+  top: 3027px;
+  width: 780px;
+}
+
+.frame-1 .worked-in-the-constr-VxPVnb {
+  background-color: transparent;
+  height: auto;
+  left: 796px;
+  letter-spacing: -0.61px;
+  line-height: 48px;
+  position: absolute;
+  text-align: left;
+  top: 3027px;
+  width: 711px;
+}
+
+.frame-1 .text-Jdxl3b {
+  left: 78px;
+  top: 3329px;
+  white-space: nowrap;
+  width: 735px;
+}
+
+.frame-1 .find-the-carrot-game-VxPVnb {
+  left: 70px;
+  letter-spacing: -0.61px;
+  line-height: 48px;
+  text-align: left;
+  top: 3412px;
+  width: 780px;
+}
+
+.frame-1 .group-2365-VxPVnb {
+  background-color: transparent;
+  height: 38px;
+  left: 574px;
+  position: absolute;
+  top: 386px;
+  width: 52px;
+}
+
+.frame-1 .rectangle-205-hQG5pu {
+  background-color: var(--white);
+  border: 5.38095235824585px solid;
+  border-color: var(--black);
+  height: 38px;
+  left: 0px;
+  position: absolute;
+  top: 0px;
+  width: 52px;
+}
+
+.frame-1 .vector-58-hQG5pu {
+  height: 21px;
+  left: 3px;
+  top: 1px;
+  width: 46px;
+}
+
+.frame-1 .group-2364-VxPVnb {
+  background-color: transparent;
+  height: 61px;
+  left: 1332px;
+  position: absolute;
+  top: 375px;
+  width: 47px;
+}
+
+.frame-1 .ellipse-103-pULsVr {
+  height: 61px;
+  left: 0px;
+  top: 0px;
+  width: 47px;
+}
+
+.frame-1 .ellipse-105-pULsVr {
+  background-color: var(--white);
+  border: 5.38095235824585px solid;
+  border-color: var(--black);
+  border-radius: 12.56px;
+  height: 25px;
+  left: 11px;
+  position: absolute;
+  top: 11px;
+  width: 25px;
+}
+
+.frame-1 .welcome-to-my-portfo-VxPVnb {
+  background-color: transparent;
+  height: 1177px;
+  left: 83px;
+  position: absolute;
+  top: 857px;
+  width: 1558px;
+}
+
+.frame-1 .rectangle-212-VxPVnb {
+  background-color: #fff2df;
+  border-radius: 50px;
+  height: 1188px;
+  left: 78px;
+  position: absolute;
+  top: 3898px;
+  width: 1533px;
+}
+
+.frame-1 .screenshot-2024-10-23-030600-1-VxPVnb {
+  background-color: transparent;
+  height: 910px;
+  left: 382px;
+  position: absolute;
+  top: 4088px;
+  width: 864px;
+}
+
+.frame-1 .rectangle-213-VxPVnb {
+  background-color: #fff2df;
+  border-radius: 50px;
+  height: 86px;
+  left: 86px;
+  position: absolute;
+  top: 3763px;
+  width: 318px;
+}
+
+.frame-1 .java-script-VxPVnb {
+  background-color: transparent;
+  height: auto;
+  left: 127px;
+  letter-spacing: 0.00px;
+  line-height: 60px;
+  position: absolute;
+  text-align: center;
+  top: 3767px;
+  white-space: nowrap;
+  width: 236px;
+}
+
+.frame-1 .find-the-carrot-game-5ArFWQ {
+  left: 45px;
+  line-height: 75px;
+  text-align: center;
+  top: 3918px;
+  width: 1536px;
+}
+
+.frame-1 .span0-2V0tMu {
+  letter-spacing: -0.55px;
+}
+
+.frame-1 .rectangle-214-VxPVnb {
+  background-color: #dcf3e7;
+  border-radius: 50px;
+  height: 1188px;
+  left: 78px;
+  position: absolute;
+  top: 5401px;
+  width: 1533px;
+}
+
+.frame-1 .student-enrolment-pr-VxPVnb {
+  background-color: transparent;
+  height: auto;
+  left: 75px;
+  line-height: 75px;
+  position: absolute;
+  text-align: center;
+  top: 5415px;
+  width: 1536px;
+}
+
+.frame-1 .span0-6t8J1f {
+  letter-spacing: -0.55px;
+}
+
+.frame-1 .screenshot-2024-10-23-063011-1-VxPVnb {
+  background-color: transparent;
+  height: 952px;
+  left: 105px;
+  position: absolute;
+  top: 5572px;
+  width: 1473px;
+}
+
+.frame-1 .rectangle-215-VxPVnb {
+  background-color: #dcf3e7;
+  border-radius: 50px;
+  height: 86px;
+  left: 78px;
+  position: absolute;
+  top: 5279px;
+  width: 318px;
+}
+
+.frame-1 .java-VxPVnb {
+  background-color: transparent;
+  height: auto;
+  left: 119px;
+  letter-spacing: 0.00px;
+  line-height: 60px;
+  position: absolute;
+  text-align: center;
+  top: 5292px;
+  white-space: nowrap;
+  width: 236px;
+}
+
+.frame-1 .rectangle-216-VxPVnb {
+  background-color: #daefff;
+  border-radius: 50px;
+  height: 1188px;
+  left: 78px;
+  position: absolute;
+  top: 6919px;
+  width: 1533px;
+}
+
+.frame-1 .colmar-academy-responsive-webpage-VxPVnb {
+  background-color: transparent;
+  height: auto;
+  left: 75px;
+  line-height: 75px;
+  position: absolute;
+  text-align: center;
+  top: 6958px;
+  width: 1536px;
+}
+
+.frame-1 .span0-s40oO3 {
+  letter-spacing: -0.55px;
+}
+
+.frame-1 .screenshot-2024-10-23-064111-1-VxPVnb {
+  background-color: transparent;
+  height: 783px;
+  left: 158px;
+  position: absolute;
+  top: 7123px;
+  width: 589px;
+}
+
+.frame-1 .screenshot-2024-10-23-064151-1-VxPVnb {
+  background-color: transparent;
+  height: 795px;
+  left: 942px;
+  position: absolute;
+  top: 7117px;
+  width: 589px;
+}
+
+.frame-1 .desktop-view-VxPVnb {
+  background-color: transparent;
+  color: var(--eerie-black);
+  font-family: var(--font-family-roboto_mono);
+  font-size: var(--font-size-s);
+  font-style: normal;
+  font-weight: 700;
+  height: auto;
+  left: 348px;
+  letter-spacing: -0.66px;
+  line-height: 45px;
+  position: absolute;
+  text-align: left;
+  top: 7975px;
+  white-space: nowrap;
+  width: auto;
+}
+
+.frame-1 .mobile-view-VxPVnb {
+  background-color: transparent;
+  color: var(--eerie-black);
+  font-family: var(--font-family-roboto_mono);
+  font-size: var(--font-size-s);
+  font-style: normal;
+  font-weight: 700;
+  height: auto;
+  left: 1140px;
+  letter-spacing: -0.66px;
+  line-height: 45px;
+  position: absolute;
+  text-align: left;
+  top: 7975px;
+  white-space: nowrap;
+  width: auto;
+}
+
+.frame-1 .rectangle-217-VxPVnb {
+  background-color: #daefff;
+  border-radius: 50px;
+  height: 86px;
+  left: 78px;
+  position: absolute;
+  top: 6789px;
+  width: 318px;
+}
+
+.frame-1 .html-css-VxPVnb {
+  background-color: transparent;
+  height: auto;
+  left: 106px;
+  letter-spacing: 0.00px;
+  line-height: 60px;
+  position: absolute;
+  text-align: center;
+  top: 6802px;
+  white-space: nowrap;
+  width: 262px;
+}
+
+.frame-1 .rectangle-218-VxPVnb {
+  background-color: #efe3ff;
+  border-radius: 50px;
+  height: 1188px;
+  left: 78px;
+  position: absolute;
+  top: 8428px;
+  width: 1533px;
+}
+
+.frame-1 .rectangle-219-VxPVnb {
+  background-color: #efe3ff;
+  border-radius: 50px;
+  height: 86px;
+  left: 78px;
+  position: absolute;
+  top: 8304px;
+  width: 318px;
+}
+
+.frame-1 .react-VxPVnb {
+  background-color: transparent;
+  height: auto;
+  left: 119px;
+  letter-spacing: 0.00px;
+  line-height: 60px;
+  position: absolute;
+  text-align: center;
+  top: 8316px;
+  white-space: nowrap;
+  width: 236px;
+}
+
+.frame-1 .spotify-playlist-cre-VxPVnb {
+  background-color: transparent;
+  height: auto;
+  left: 52px;
+  line-height: 75px;
+  position: absolute;
+  text-align: center;
+  top: 8447px;
+  width: 1536px;
+}
+
+.frame-1 .span0-rUkjnP {
+  letter-spacing: -0.55px;
+}
+
+.frame-1 .screenshot-2024-10-23-064928-1-VxPVnb {
+  background-color: transparent;
+  height: 934px;
+  left: 137px;
+  position: absolute;
+  top: 8626px;
+  width: 1414px;
+}
+
+.frame-1 .rectangle-220-VxPVnb {
+  background-color: var(--eerie-black);
+  border-radius: 3px;
+  height: 18px;
+  left: 64px;
+  position: absolute;
+  top: 2172px;
+  width: 1533px;
+}
+
+.frame-1 .rectangle-221-VxPVnb {
+  background-color: var(--eerie-black);
+  border-radius: 3px;
+  height: 18px;
+  left: 70px;
+  position: absolute;
+  top: 2788px;
+  width: 1533px;
+}
+
+.frame-1 .rectangle-222-VxPVnb {
+  background-color: var(--eerie-black);
+  border-radius: 3px;
+  height: 18px;
+  left: 70px;
+  position: absolute;
+  top: 3220px;
+  width: 1533px;
+}
+
+.frame-1 .oip-1-VxPVnb {
+  background-color: transparent;
+  height: 60px;
+  left: 777px;
+  position: absolute;
+  top: 441px;
+  width: 72px;
+}
+
+.frame-1 .ceeyestano-githubcom-VxPVnb {
+  background-color: transparent;
+  color: var(--black);
+  cursor: pointer;
+  font-family: var(--font-family-jejumyeongjo-regular);
+  font-size: var(--font-size-m);
+  font-style: normal;
+  font-weight: 400;
+  height: auto;
+  left: 870px;
+  letter-spacing: -0.61px;
+  line-height: 48px;
+  position: absolute;
+  text-align: left;
+  text-decoration: underline;
+  top: 451px;
+  white-space: nowrap;
+  width: 473px;
+}
+
+.frame-1 .ellipse-103 {
+  background-color: transparent;
+  position: absolute;
+}
+
+.frame-1 .find-the-carrot-game {
+  background-color: transparent;
+  height: auto;
+  position: absolute;
+}
+
+.frame-1 .span1 {
+  letter-spacing: -0.90px;
+  line-height: 96px;
+}
+
+.frame-1 .span2 {
+  letter-spacing: 0.00px;
+  line-height: 48px;
+}
+
+.frame-1 .text {
+  background-color: transparent;
+  height: auto;
+  letter-spacing: -0.61px;
+  line-height: 48px;
+  position: absolute;
+  text-align: left;
+}
+
+.frame-1 .vector-58 {
+  background-color: transparent;
+  position: absolute;
+}
+</style><script id="anime-js-script" src="https://cdn.jsdelivr.net/npm/animejs@3.1.0/lib/anime.min.js" integrity="sha256-98Q574VkbV+PkxXCKSgL6jVq9mrVbS7uCdA+vt0sLS8=" crossorigin="anonymous"></script><script id="imgloaded-js-script" src="https://unpkg.com/imagesloaded@4/imagesloaded.pkgd.min.js"></script><style id="action-links-styles">
+@import url('https://fonts.googleapis.com/css2?family=Mulish&display=swap');
+
+#anima-interface{
+  transition: all 0.5s ease-in-out;
+}
+
+#anima-watermark {
+  transition: all 0.5s ease-in-out;
+  display: none;
+}
+#anima-watermark-link{
+  position: fixed;
+  bottom:20px;
+  height:30px;
+  border-radius: 1000px;
+  background: #3B3B3B;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  cursor:pointer;
+  user-select:none;
+  transition: width 0.25s cubic-bezier(0.175, 0.885, 0.320, 1.275);
+  text-decoration:none;
+  color:#fff;
+  padding:8px 16px 8px 11px;
+  font-family:Mulish, sans-serif;
+  font-size:12px;
+}
+#anima-watermark-link .text {
+  margin-left: 6px;
+}
+
+.omniview-anima-action-links .link{
+  height: 30px;
+  width: 30px;
+  border-radius: 1000px;
+  background: #3B3B3B;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  cursor:pointer;
+  user-select:none;
+  transition: width 0.25s cubic-bezier(0.175, 0.885, 0.320, 1.275);
+  text-decoration:none;
+  color:#fff;
+}
+.omniview-anima-action-links #comment-link .text,.omniview-anima-action-links #code-link .text{
+  display:none;
+  font-size:12px;
+  margin-right:5px;
+}
+.omniview-anima-action-links #comment-link:hover,.omniview-anima-action-links #code-link:hover{
+  width:105px;
+}
+.omniview-anima-action-links #comment-link.pop-active,.omniview-anima-action-links #code-link.pop-active{
+  width:105px;
+  background: #FF6250;
+}
+.omniview-anima-action-links #comment-link.pop-active .text,.omniview-anima-action-links #code-link.pop-active .text{
+  display:block
+}
+.omniview-anima-action-links #comment-link:hover .text,.omniview-anima-action-links #code-link:hover .text{
+  display:block;
+}
+
+.link.navigation{
+  position:fixed;
+  left:50%;
+  transform:translateX(-50%);
+  width:auto;
+  height:32px;
+  color:#fff;
+  font-size:12px;
+  cursor:default;
+  padding:0 5px;
+}
+.link.navigation .icon{
+  margin:0 6px;
+  fill:none;
+  stroke:currentColor;
+  cursor:pointer;
+}
+.link.navigation .icon.disabled{
+  opacity:0.5;
+  cursor:default;
+}
+
+
+.link.navigation .home-icon{
+  margin-left:6px;
+  fill:currentColor;
+  stroke:currentColor;
+  cursor:pointer;
+}
+
+.omniview-anima-action-links .restart{
+  height: 30px;
+  padding:0 12px;
+  background: #3B3B3B;
+  border-radius: 1000px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  cursor:pointer;
+  color:#f1f1f1;
+  font-size: 12px;
+}
+
+.omniview-anima-action-links{
+  display:flex;
+  align-items:center;
+  position:fixed;
+  bottom:20px;
+  right:20px;
+  font-family:Mulish, sans-serif;
+  transition: all 0.5s ease-in-out;
+  opacity:1;
+}
+
+.omniview-anima-action-links > * + *{
+   margin-right: 0;
+   margin-left: 10px;
+}
+
+.idle{
+  opacity:0;
+  pointer-events:none;
+}
+
+#popoverOpener {
+  position: absolute;
+  left: 50%;
+  margin-left: -10vw;
+  text-align: center;
+  top: 45vh;
+  width: 20vw;
+}
+
+
+.popover {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 1060;
+  display: none;
+  font-family: "sans-serif";
+  font-size: 14px;
+  background-color: #fff;
+  border-radius: 10px;
+  box-shadow: 0 5px 10px rgba(0,0,0,.2);
+}
+
+.popover.top {
+  margin-top: -12px
+}
+
+.popover.right {
+  margin-left: 10px
+}
+
+.popover.bottom {
+  margin-top: 10px
+}
+
+.popover.left {
+  margin-left: -10px
+}
+
+.popover-title {
+  padding: 8px 14px;
+  margin: 0;
+  font-size: 14px;
+  background-color: #f7f7f7;
+  border-bottom: 1px solid #ebebeb;
+  border-radius: 5px 5px 0 0
+}
+
+.popover-content {
+  height: 100%;
+  width: 100%;
+  display:flex;
+  overflow:hidden;
+  font-family:Mulish, sans-serif;
+}
+
+
+
+.popover>.arrow,.popover>.arrow:after {
+  position: absolute;
+  display: block;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid
+}
+
+.popover>.arrow {
+  border-width: 11px
+}
+
+.popover>.arrow:after {
+  content: "";
+  border-width: 10px
+}
+
+.popover.top>.arrow {
+  bottom: -11px;
+  left: 50%;
+  margin-left: -11px;
+  border-top-color: #999;
+  border-top-color: rgba(0,0,0,.25);
+  border-bottom-width: 0
+}
+
+.popover.top>.arrow:after {
+  bottom: 1px;
+  margin-left: -10px;
+  content: " ";
+  border-top-color: #fff;
+  border-bottom-width: 0
+}
+
+.popover.right>.arrow {
+  top: 50%;
+  left: -11px;
+  margin-top: -11px;
+  border-right-color: #999;
+  border-right-color: rgba(0,0,0,.25);
+  border-left-width: 0
+}
+
+.popover.right>.arrow:after {
+  bottom: -10px;
+  left: 1px;
+  content: " ";
+  border-right-color: #fff;
+  border-left-width: 0
+}
+
+.popover.bottom>.arrow {
+  top: -11px;
+  left: 50%;
+  margin-left: -11px;
+  border-top-width: 0;
+  border-bottom-color: #999;
+  border-bottom-color: rgba(0,0,0,.25)
+}
+
+.popover.bottom>.arrow:after {
+  top: 1px;
+  margin-left: -10px;
+  content: " ";
+  border-top-width: 0;
+  border-bottom-color: #fff
+}
+
+.popover.left>.arrow {
+  top: 50%;
+  right: -11px;
+  margin-top: -11px;
+  border-right-width: 0;
+  border-left-color: #999;
+  border-left-color: rgba(0,0,0,.25)
+}
+
+.popover.left>.arrow:after {
+  right: 1px;
+  bottom: -10px;
+  content: " ";
+  border-right-width: 0;
+  border-left-color: #fff
+}
+
+
+
+#anima-comment-popover,#anima-code-popover{
+  background:#333333;
+  color:#fff;
+}
+
+#anima-comment-popover.top>.arrow,#anima-comment-popover.top>.arrow:after,#anima-code-popover.top>.arrow:after,#anima-code-popover.top>.arrow {
+  border-top-color:#333;
+}
+
+#anima-comment-popover .btn,#anima-code-popover .btn {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding: 6px 20px;
+  background: #FF6250;
+  color:#fff;
+  border-radius: 100px;
+  width: max-content;
+  text-decoration:none;
+}
+
+@media screen and (max-width: 550px) {
+  #anima-watermark-link {
+    padding: 6px !important;
+  }
+  #anima-watermark-link .text {
+    display: none !important;
+  }
+}
+
+</style></head><body style="margin: 0px; background: rgb(255, 255, 255); overflow-x: hidden;" dark-scroll=""><input type="hidden" id="anPageName" name="page" value="frame-1"><div class="container-center-horizontal"><div class="frame-1 screen " data-id="1:62"><img class="image-VxPVnb" data-id="6:16" src="https://cdn.animaapp.com/projects/67183ac9f4a812ae7f131d7e/releases/67188e6411aba4585f21d0ab/img/image.png" anima-src="https://cdn.animaapp.com/projects/67183ac9f4a812ae7f131d7e/releases/67188e6411aba4585f21d0ab/img/image.png" alt="image"><div class="text-VxPVnb text inter-bold-dodger-blue-32px" data-id="6:42">Contact info:</div><div class="cst97124gmailcom-VxPVnb inter-medium-eerie-black-22px" data-id="6:44">cst97124@gmail.com</div><div class="x65-8890-1672-VxPVnb inter-medium-eerie-black-22px" data-id="6:45">+65 8890 1672</div><div class="singapore-VxPVnb inter-medium-eerie-black-22px" data-id="6:46">Singapore</div><img class="ellipse-103-VxPVnb ellipse-103" data-id="6:48" src="https://cdn.animaapp.com/projects/67183ac9f4a812ae7f131d7e/releases/67188e6411aba4585f21d0ab/img/ellipse-103@2x.png" anima-src="https://cdn.animaapp.com/projects/67183ac9f4a812ae7f131d7e/releases/67188e6411aba4585f21d0ab/img/ellipse-103@2x.png" alt="Ellipse 103"><div class="group-2368-VxPVnb" data-id="6:50"><div class="rectangle-206-kENyA0" data-id="6:51"></div><div class="rectangle-207-kENyA0" data-id="6:52"></div></div><img class="vector-58-VxPVnb vector-58" data-id="6:55" src="https://cdn.animaapp.com/projects/67183ac9f4a812ae7f131d7e/releases/67188e6411aba4585f21d0ab/img/ellipse-103@2x.png" anima-src="https://cdn.animaapp.com/projects/67183ac9f4a812ae7f131d7e/releases/67188e6411aba4585f21d0ab/img/ellipse-103@2x.png" alt="Vector 58"><div class="text-5ArFWQ text inter-bold-dodger-blue-32px" data-id="6:30">Name:</div><p class="charlie-tan-junior-full-stack-developer-VxPVnb" data-id="6:32">Charlie Tan<br>Junior Full Stack Developer</p><div class="rectangle-209-VxPVnb" data-id="6:57"></div><div class="rectangle-210-VxPVnb" data-id="6:58"></div><div class="rectangle-211-VxPVnb" data-id="6:60"></div><div class="text-Lk3E3L text inter-bold-dodger-blue-32px" data-id="8:14">About me:</div><div class="text-NQaQKn text inter-bold-dodger-blue-32px" data-id="8:24">Skills:</div><p class="programming-language-VxPVnb inter-medium-eerie-black-32px" data-id="8:26">Programming languages: HTML &amp; CSS, Java, JavaScipt, SQL<br>Framwork/Libraries: SpringBoot, React, Bootstrap<br>Databases: MySQL<br>Tools: Git/GitHub, Bash, Visual Studio Code, IntelliJ, Maven, Postman<br>MS Office: Word, Excel, PowerPoint, Outlook</p><div class="text-NbBwY9 text inter-bold-dodger-blue-32px" data-id="8:32">Education:</div><div class="text-xRLCe7 text inter-bold-dodger-blue-32px" data-id="8:34">Experience:</div><p class="diploma-in-law-manag-VxPVnb inter-medium-eerie-black-32px" data-id="8:36">Diploma in Law &amp; Management<br>2014-2017 : Temasek Polytechnic</p><p class="worked-in-the-constr-VxPVnb inter-medium-eerie-black-32px" data-id="8:38">Worked in the construction industry from 2019-2022</p><div class="text-Jdxl3b text inter-bold-dodger-blue-32px" data-id="8:44">Portfolio:</div><p class="find-the-carrot-game-VxPVnb find-the-carrot-game inter-medium-eerie-black-32px" data-id="8:46">Find the Carrot Game<br>Student Enrolment Program<br>Colmar Academy<br>Spotify API</p><div class="group-2365-VxPVnb" data-id="8:70"><div class="rectangle-205-hQG5pu" data-id="8:71"></div><img class="vector-58-hQG5pu vector-58" data-id="8:72" src="https://cdn.animaapp.com/projects/67183ac9f4a812ae7f131d7e/releases/67188e6411aba4585f21d0ab/img/vector-58-1.svg" anima-src="https://cdn.animaapp.com/projects/67183ac9f4a812ae7f131d7e/releases/67188e6411aba4585f21d0ab/img/vector-58-1.svg" alt="Vector 58"></div><div class="group-2364-VxPVnb" data-id="8:74"><img class="ellipse-103-pULsVr ellipse-103" data-id="8:75" src="https://cdn.animaapp.com/projects/67183ac9f4a812ae7f131d7e/releases/67194cb3d3665fdff9ee43f3/img/ellipse-103-1.svg" anima-src="https://cdn.animaapp.com/projects/67183ac9f4a812ae7f131d7e/releases/67194cb3d3665fdff9ee43f3/img/ellipse-103-1.svg" alt="Ellipse 103"><div class="ellipse-105-pULsVr" data-id="8:76"></div></div><img class="welcome-to-my-portfo-VxPVnb" data-id="10:14" src="https://cdn.animaapp.com/projects/67183ac9f4a812ae7f131d7e/releases/6719863617d3f95e8cf2d304/img/welcome-to-my-portfolio--i-am-a-junior-full-stack-software-devel.png" anima-src="https://cdn.animaapp.com/projects/67183ac9f4a812ae7f131d7e/releases/6719863617d3f95e8cf2d304/img/welcome-to-my-portfolio--i-am-a-junior-full-stack-software-devel.png" alt="Welcome to my portfolio! I am a junior full stack software developer with a unique background that combines a Diploma in Law &amp; Management and experience in the construction industry as a Safety Coordinator. My academic foundation has equipped me with strong analytical and problem-solving skills, while my professional experience has honed my ability to manage projects, communicate effectively, working in teams applying different methodologies such as Waterfall or Agile, and ensuring compliance with regulations. This blend of education and work has fueled my passion for technology and programming. After discovering my interest in software development and project/product management, I dedicated myself to building my skills in both front-end and back-end technologies. I enjoy the potential and possibilities of creating dynamic, user-friendly applications that solve real-world problems and enhance user experience. Moreover, I am also looking at Product/Project Management, where my skills from my previous work industry would be to a higher degree transferable. Outside of work, I am passionate about a variety of hobbies. I love exploring the outdoors, which allows me to capture the beauty of nature and unwind from the digital world and my favourite sport is soccer. Additionally, I enjoy reading about technology trends and updates of the latest world news. I am also an avid runner and gamer, having represented my school in Track &amp; Field in the past and my go-to game on Xbox and the like is EA SPORTS FC 24 (previously last known as FIFA 23). Thank you for taking the time to explore my portfolio. I look forward to connecting and discussing with you!"><div class="rectangle-212-VxPVnb" data-id="21:35"></div><img class="screenshot-2024-10-23-030600-1-VxPVnb" data-id="21:36" src="https://cdn.animaapp.com/projects/67183ac9f4a812ae7f131d7e/releases/67194cb3d3665fdff9ee43f3/img/screenshot-2024-10-23-030600-1.svg" anima-src="https://cdn.animaapp.com/projects/67183ac9f4a812ae7f131d7e/releases/67194cb3d3665fdff9ee43f3/img/screenshot-2024-10-23-030600-1.svg" alt="Screenshot 2024-10-23 030600 1"><div class="rectangle-213-VxPVnb" data-id="21:40"></div><div class="java-script-VxPVnb inter-bold-black-40px" data-id="21:42">JavaScript</div><h1 class="find-the-carrot-game-5ArFWQ find-the-carrot-game inter-bold-eerie-black-50px" data-id="21:43"><span class="span0-2V0tMu inter-bold-eerie-black-50px">Find the Carrot Game</span><span class="span1 inter-bold-eerie-black-64px"></span><span class="span2 figmahand-regular-normal-eerie-black-32px"><br>Console based text game</span></h1><div class="rectangle-214-VxPVnb" data-id="21:57"></div><p class="student-enrolment-pr-VxPVnb inter-bold-eerie-black-50px" data-id="14:17"><span class="span0-6t8J1f inter-bold-eerie-black-50px">Student Enrolment Program</span><span class="span1 inter-bold-eerie-black-64px"></span><span class="span2 figmahand-regular-normal-eerie-black-32px"><br>Console based Java program</span></p><img class="screenshot-2024-10-23-063011-1-VxPVnb" data-id="21:59" src="https://cdn.animaapp.com/projects/67183ac9f4a812ae7f131d7e/releases/67194cb3d3665fdff9ee43f3/img/screenshot-2024-10-23-063011-1.svg" anima-src="https://cdn.animaapp.com/projects/67183ac9f4a812ae7f131d7e/releases/67194cb3d3665fdff9ee43f3/img/screenshot-2024-10-23-063011-1.svg" alt="Screenshot 2024-10-23 063011 1"><div class="rectangle-215-VxPVnb" data-id="21:63"></div><div class="java-VxPVnb inter-bold-black-40px" data-id="21:65">Java</div><div class="rectangle-216-VxPVnb" data-id="21:67"></div><div class="colmar-academy-responsive-webpage-VxPVnb inter-bold-eerie-black-50px" data-id="21:69"><span class="span0-s40oO3 inter-bold-eerie-black-50px">Colmar Academy</span><span class="span1 inter-bold-eerie-black-64px"></span><span class="span2 figmahand-regular-normal-eerie-black-32px"><br>Responsive webpage</span></div><img class="screenshot-2024-10-23-064111-1-VxPVnb" data-id="21:71" src="https://cdn.animaapp.com/projects/67183ac9f4a812ae7f131d7e/releases/67194cb3d3665fdff9ee43f3/img/screenshot-2024-10-23-064111-1.svg" anima-src="https://cdn.animaapp.com/projects/67183ac9f4a812ae7f131d7e/releases/67194cb3d3665fdff9ee43f3/img/screenshot-2024-10-23-064111-1.svg" alt="Screenshot 2024-10-23 064111 1"><img class="screenshot-2024-10-23-064151-1-VxPVnb" data-id="21:73" src="https://cdn.animaapp.com/projects/67183ac9f4a812ae7f131d7e/releases/67194cb3d3665fdff9ee43f3/img/screenshot-2024-10-23-064151-1.svg" anima-src="https://cdn.animaapp.com/projects/67183ac9f4a812ae7f131d7e/releases/67194cb3d3665fdff9ee43f3/img/screenshot-2024-10-23-064151-1.svg" alt="Screenshot 2024-10-23 064151 1"><div class="desktop-view-VxPVnb" data-id="21:75">Desktop view</div><div class="mobile-view-VxPVnb" data-id="21:77">Mobile View</div><div class="rectangle-217-VxPVnb" data-id="21:79"></div><div class="html-css-VxPVnb inter-bold-black-40px" data-id="21:81">HTML &amp; CSS</div><div class="rectangle-218-VxPVnb" data-id="21:83"></div><div class="rectangle-219-VxPVnb" data-id="21:85"></div><div class="react-VxPVnb inter-bold-black-40px" data-id="21:87">React</div><p class="spotify-playlist-cre-VxPVnb inter-bold-eerie-black-50px" data-id="21:89"><span class="span0-rUkjnP inter-bold-eerie-black-50px">Spotify Playlist</span>
+  <span class="span1 inter-bold-eerie-black-64px"></span><span class="span2 figmahand-regular-normal-eerie-black-32px"><br>Create custom playlists on Spotify</span></p><img class="screenshot-2024-10-23-064928-1-VxPVnb" data-id="21:91" src="https://cdn.animaapp.com/projects/67183ac9f4a812ae7f131d7e/releases/67194cb3d3665fdff9ee43f3/img/screenshot-2024-10-23-064928-1.svg" anima-src="https://cdn.animaapp.com/projects/67183ac9f4a812ae7f131d7e/releases/67194cb3d3665fdff9ee43f3/img/screenshot-2024-10-23-064928-1.svg" alt="Screenshot 2024-10-23 064928 1"><div class="rectangle-220-VxPVnb" data-id="24:93"></div><div class="rectangle-221-VxPVnb" data-id="24:95"></div><div class="rectangle-222-VxPVnb" data-id="24:97"></div><img class="oip-1-VxPVnb" data-id="26:99" src="https://cdn.animaapp.com/projects/67183ac9f4a812ae7f131d7e/releases/67195ab8011029d51a85c539/img/oip-1@2x.png" anima-src="https://cdn.animaapp.com/projects/67183ac9f4a812ae7f131d7e/releases/67195ab8011029d51a85c539/img/oip-1@2x.png" alt="OIP 1"><a href="https://github.com/Ceeyestano" target="_blank"><div class="ceeyestano-githubcom-VxPVnb" data-id="26:103" data-hotspot-id="hp-0">Ceeyestano (github.com)</div></a></div></div><script src="launchpad-js/launchpad-banner.js" async=""></script><script defer="" src="https://animaapp.s3.amazonaws.com/static/restart-btn.min.js"></script><div id="anima-interface" data-turbo-permanent="true" class="idle"><!---->
+        
+  </body>
+    
+</html>
